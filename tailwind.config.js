@@ -5,8 +5,6 @@ module.exports = {
     extend: {
       colors: {
         brightBlue: "hsl(220, 98%, 61%)",
-        checkBG:
-          "linear-gradient(45deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
         light: {
           DEFAULT: "hsl(220, 98%, 61%)",
           veryLightGray: "hsl(0, 0%, 98%)",
@@ -35,7 +33,6 @@ module.exports = {
       fontSize: {
         body: "18px",
         logoMobile: "26px",
-        normal: "14px",
       },
       backgroundImage: (theme) => ({
         "bg-desktop-dark": "url('/public/images/bg-desktop-dark.jpg')",
@@ -46,9 +43,23 @@ module.exports = {
         "icon-cross": "url('/public/images/icon-cross.svg')",
         "icon-moon": "url('/public/images/icon-moon.svg')",
         "icon-sun": "url('/public/images/icon-sun.svg')",
+        "bg-check":
+          "linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
       }),
       maxWidth: {
         desktop: "1440px",
+      },
+      spacing: {
+        "200px": "200px",
+        "300px": "300px",
+        mobileLogoHeight: "26px",
+        38: "155px",
+      },
+      letterSpacing: {
+        mobileLogo: "10px",
+      },
+      zIndex: {
+        "-50": "-50",
       },
     },
   },
