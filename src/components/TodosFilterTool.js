@@ -2,21 +2,21 @@ import React from "react";
 
 const TodosFilterTool = ({ todoFilter, setTodoFilter }) => {
   return (
-    <div className="mt-4 rounded-md bg-white flex flex-row justify-center items-center py-3.5 shadow-sm text-light-darkGrayishBlue">
-      {["All", "Active", "Completed"].map((filter) => {
-        return (
-          <button
-            key={`filter-${filter}`}
-            className={`text-sm mx-2 font-bold ${
-              todoFilter === filter && "text-light"
-            }`}
-            onClick={() => setTodoFilter(filter)}
-          >
-            {filter}
-          </button>
-        );
-      })}
-    </div>
+    // <div className="">
+    ["All", "Active", "Completed"].map((filter) => {
+      return (
+        <button
+          key={`filter-${filter}`}
+          className={`text-sm mx-2 font-bold hover:text-light-veryDarkGrayishBlue ${
+            todoFilter === filter ? "text-light" : " text-light-darkGrayishBlue"
+          }`}
+          onClick={() => setTodoFilter(filter)}
+        >
+          {filter}
+        </button>
+      );
+    })
+    // </div>
   );
 };
 

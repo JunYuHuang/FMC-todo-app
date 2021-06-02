@@ -10,10 +10,10 @@ const CreateTodoForm = ({ todoText, setTodoText, createTodo }) => {
   return (
     <form className="mt-10" onSubmit={(e) => handleCreateTodoForm(e)}>
       <div className="rounded-md bg-white flex flex-row items-center">
-        <div className="ml-5 rounded-full h-5 w-5 border-darkGrayishBlue border"></div>
+        <div className="ml-5 rounded-full h-5 w-5 border-darkGrayishBlue border mobilePlus:h-26px mobilePlus:w-26px mobilePlus:ml-6"></div>
         <input
           type="text"
-          className="block py-4 px-3 text-xs text-darkGrayishBlue flex-grow rounded-md focus:outline-none"
+          className="block py-4 px-3 text-xs text-darkGrayishBlue flex-grow rounded-md focus:outline-none mobilePlus:text-lg mobilePlus:pt-5 mobilePlus:pb-4 mobilePlus:px-6"
           name="input-todo"
           placeholder="Create a new todo..."
           value={todoText}

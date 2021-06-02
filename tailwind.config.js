@@ -39,33 +39,39 @@ module.exports = {
         "bg-desktop-light": "url('/public/images/bg-desktop-light.jpg')",
         "bg-mobile-dark": "url('/public/images/bg-mobile-dark.jpg')",
         "bg-mobile-light": "url('/public/images/bg-mobile-light.jpg')",
-        "icon-check": "url('/public/images/icon-check.svg')",
-        "icon-cross": "url('/public/images/icon-cross.svg')",
-        "icon-moon": "url('/public/images/icon-moon.svg')",
-        "icon-sun": "url('/public/images/icon-sun.svg')",
         "bg-check":
           "linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
       }),
       maxWidth: {
         desktop: "1440px",
+        "540px": "540px",
       },
       spacing: {
         "200px": "200px",
         "300px": "300px",
-        mobileLogoHeight: "26px",
         38: "155px",
+        "26px": "26px",
+        "18px": "18px",
+      },
+      height: {
+        mobileLogoHeight: "26px",
       },
       letterSpacing: {
         mobileLogo: "10px",
+        desktopLogo: "18px",
       },
       zIndex: {
         "-50": "-50",
+      },
+      screens: {
+        mobilePlus: "588px",
       },
     },
   },
   variants: {
     extend: {
       margin: ["first"],
+      cursor: ["hover"],
     },
   },
   plugins: [],
