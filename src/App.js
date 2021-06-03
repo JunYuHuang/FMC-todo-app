@@ -5,7 +5,6 @@ import Todo from "./components/Todo";
 import TodosMenu from "./components/TodosMenu";
 import TodosFilterTool from "./components/TodosFilterTool";
 import {
-  storageAvailable,
   checkLSKeyValueExists,
   getLSKeyValue,
   setLSKeyValue,
@@ -14,7 +13,7 @@ import {
 // import { Counter } from "./features/counter/Counter";
 import { nanoid } from "nanoid";
 import "tailwindcss/tailwind.css";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+// import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 function App() {
   const THEME = "isLightTheme";

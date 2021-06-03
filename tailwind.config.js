@@ -51,6 +51,9 @@ module.exports = {
         "300px": "300px",
         38: "155px",
         "26px": "26px",
+        "25px": "25px",
+        "24px": "24px",
+        "19px": "19px",
         "18px": "18px",
       },
       height: {
@@ -72,6 +75,7 @@ module.exports = {
     extend: {
       margin: ["first"],
       cursor: ["hover"],
+      backgroundImage: ["hover"],
     },
   },
   plugins: [],
