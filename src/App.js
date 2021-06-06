@@ -13,7 +13,7 @@ import {
 // import { Counter } from "./features/counter/Counter";
 import { nanoid } from "nanoid";
 import "tailwindcss/tailwind.css";
-// import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function App() {
   const THEME = "isLightTheme";
@@ -115,6 +115,14 @@ function App() {
     return show;
   };
 
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const updatedTodos = Array.from(todos);
+    const [reorderedTodo] = updatedTodos.splice(result.source.index, 1);
+    updatedTodos.splice(result.destination.index, 0, reorderedTodo);
+    setTodos(updatedTodos);
+  };
+
   return (
     <div className="min-h-screen bg-light-veryLightGrayishBlue">
       <div
@@ -131,17 +139,32 @@ function App() {
           createTodo={createTodo}
         />
         <div className="mt-4 rounded-md bg-white shadow-sm mobilePlus:mt-6 mobilePlus:shadow-lg">
-          {todos.map(
-            (todo) =>
-              shouldShowTodo(todo, todoFilter) && (
-                <Todo
-                  key={todo.id}
-                  todo={todo}
-                  toggleTodoCompletedState={toggleTodoCompletedState}
-                  deleteTodo={deleteTodo}
-                />
-              )
-          )}
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="todos">
+              {(provided) => (
+                <div
+                  className="todos"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {todos.map((todo, index) => {
+                    return (
+                      shouldShowTodo(todo, todoFilter) && (
+                        <Todo
+                          key={todo.id}
+                          index={index}
+                          todo={todo}
+                          toggleTodoCompletedState={toggleTodoCompletedState}
+                          deleteTodo={deleteTodo}
+                        />
+                      )
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
           <TodosMenu
             todos={todos}
             setTodos={setTodos}
