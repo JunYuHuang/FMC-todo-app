@@ -1,6 +1,18 @@
 import { Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { toggleTodoCompletedState, deleteTodo } from "../redux/todosSlice";
 
-const Todo = ({ todo, toggleTodoCompletedState, deleteTodo, index }) => {
+export default function Todo({ todo, index }) {
+  const dispatch = useDispatch();
+
+  const handleToggleTodoCompletedState = (id) => {
+    dispatch(toggleTodoCompletedState({ id: id }));
+  };
+
+  const handleDeleteTodo = (id) => {
+    dispatch(deleteTodo({ id: id }));
+  };
+
   return (
     <Draggable key={todo.id} draggableId={todo.id} index={index}>
       {(provided) => (
@@ -24,7 +36,7 @@ const Todo = ({ todo, toggleTodoCompletedState, deleteTodo, index }) => {
                 type="checkbox"
                 className="absolute -z-50 -translate-x-full"
                 checked={todo.completed}
-                onChange={() => toggleTodoCompletedState(todo.id)}
+                onChange={() => handleToggleTodoCompletedState(todo.id)}
               />
               <div
                 className={`rounded-full h-5 w-5 hover:cursor-pointer mr-3 flex flex-col justify-center items-center mobilePlus:h-26px mobilePlus:w-26px mobilePlus:mr-6 ${
@@ -58,7 +70,7 @@ const Todo = ({ todo, toggleTodoCompletedState, deleteTodo, index }) => {
           </div>
           <button
             className="hover:cursor-pointer mobilePlus:opacity-0 group-hover:opacity-100"
-            onClick={() => deleteTodo(todo.id)}
+            onClick={() => handleDeleteTodo(todo.id)}
           >
             <img
               alt="An cross icon representing the delete button."
@@ -70,6 +82,4 @@ const Todo = ({ todo, toggleTodoCompletedState, deleteTodo, index }) => {
       )}
     </Draggable>
   );
-};
-
-export default Todo;
+}

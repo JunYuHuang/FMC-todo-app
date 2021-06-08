@@ -1,10 +1,21 @@
-const CreateTodoForm = ({ todoText, setTodoText, createTodo }) => {
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createTodo } from "../redux/todosSlice";
+
+export default function CreateTodoForm() {
+  const [todoText, setTodoText] = useState("");
+  const dispatch = useDispatch();
+
   const handleCreateTodoForm = (e) => {
     e.preventDefault();
     if (todoText !== "") {
-      createTodo(todoText);
+      dispatch(createTodo({ text: todoText }));
     }
     setTodoText("");
+  };
+
+  const handleSetTodoText = (text) => {
+    setTodoText(text);
   };
 
   return (
@@ -17,9 +28,7 @@ const CreateTodoForm = ({ todoText, setTodoText, createTodo }) => {
           name="input-todo"
           placeholder="Create a new todo..."
           value={todoText}
-          onChange={(e) => {
-            setTodoText(e.target.value);
-          }}
+          onChange={(e) => handleSetTodoText(e.target.value)}
         />
         <label htmlFor="input-todo" className="absolute -z-50">
           Create a new todo...
@@ -27,6 +36,4 @@ const CreateTodoForm = ({ todoText, setTodoText, createTodo }) => {
       </div>
     </form>
   );
-};
-
-export default CreateTodoForm;
+}

@@ -1,23 +1,26 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTodosFilter, setTodosFilter } from "../redux/todosFilterSlice";
 
-const TodosFilterTool = ({ todoFilter, setTodoFilter }) => {
-  return (
-    // <div className="">
-    ["All", "Active", "Completed"].map((filter) => {
-      return (
-        <button
-          key={`filter-${filter}`}
-          className={`text-sm mx-2 font-bold hover:text-light-veryDarkGrayishBlue ${
-            todoFilter === filter ? "text-light" : " text-light-darkGrayishBlue"
-          }`}
-          onClick={() => setTodoFilter(filter)}
-        >
-          {filter}
-        </button>
-      );
-    })
-    // </div>
-  );
-};
+export default function TodosFilterTool() {
+  const todosFilter = useSelector(selectTodosFilter);
+  const dispatch = useDispatch();
 
-export default TodosFilterTool;
+  const handleSetTodosFilter = (filter) => {
+    dispatch(setTodosFilter(filter));
+  };
+
+  return ["All", "Active", "Completed"].map((filter) => {
+    return (
+      <button
+        key={`filter-${filter}`}
+        className={`text-sm mx-2 font-bold hover:text-light-veryDarkGrayishBlue ${
+          todosFilter === filter ? "text-light" : "text-light-darkGrayishBlue"
+        }`}
+        onClick={() => handleSetTodosFilter(filter)}
+      >
+        {filter}
+      </button>
+    );
+  });
+}

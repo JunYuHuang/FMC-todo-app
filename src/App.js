@@ -1,127 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import "tailwindcss/tailwind.css";
 import AppHeader from "./components/AppHeader";
 import CreateTodoForm from "./components/CreateTodoForm";
-import Todo from "./components/Todo";
-import TodosMenu from "./components/TodosMenu";
+import TodoList from "./components/TodoList";
 import TodosFilterTool from "./components/TodosFilterTool";
-import {
-  checkLSKeyValueExists,
-  getLSKeyValue,
-  setLSKeyValue,
-} from "./lib/localStorageHelper";
-// import styled from "styled-components";
-// import { Counter } from "./features/counter/Counter";
-import { nanoid } from "nanoid";
-import "tailwindcss/tailwind.css";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
+import { selectTheme } from "./redux/themeSlice";
+import { selectTodos } from "./redux/todosSlice";
+import { selectTodosFilter } from "./redux/todosFilterSlice";
+import { loadAppData, saveAppData } from "./lib/appDataHelper";
 
-function App() {
-  const THEME = "isLightTheme";
-  const TODOS = "todos";
-  const FILTER = "todoFilter";
-
-  const [todoText, setTodoText] = useState("");
-  const [todoFilter, setTodoFilter] = useState("All");
-  const [todos, setTodos] = useState([]);
-  const [isLightTheme, setIsLightTheme] = useState(true);
+export default function App() {
+  const theme = useSelector(selectTheme);
+  const todos = useSelector(selectTodos);
+  const todosFilter = useSelector(selectTodosFilter);
 
   useEffect(() => {
-    loadState();
+    loadAppData();
   }, []);
 
   useEffect(() => {
-    setLSKeyValue(THEME, isLightTheme);
-  }, [isLightTheme]);
-
-  useEffect(() => {
-    setLSKeyValue(TODOS, todos);
-  }, [todos]);
-
-  useEffect(() => {
-    setLSKeyValue(FILTER, todoFilter);
-  }, [todoFilter]);
-
-  //
-  // helper functions
-  //
-
-  // load saved app state (theme and todo list) from localStorage or load dummy data
-  const loadState = () => {
-    checkLSKeyValueExists(THEME)
-      ? setIsLightTheme(getLSKeyValue(THEME))
-      : setIsLightTheme(true);
-
-    checkLSKeyValueExists(TODOS)
-      ? setTodos(getLSKeyValue(TODOS))
-      : fetch("data.json")
-          .then((res) => res.json())
-          .then((data) => {
-            setTodos(data);
-          })
-          .catch((err) => console.log(err));
-
-    checkLSKeyValueExists(FILTER)
-      ? setTodoFilter(getLSKeyValue(FILTER))
-      : setTodoFilter("All");
-  };
-
-  const createTodo = (text) => {
-    setTodos((prevTodos) => {
-      return [
-        ...prevTodos,
-        {
-          id: nanoid(),
-          description: text,
-          completed: false,
-        },
-      ];
-    });
-  };
-
-  const toggleTodoCompletedState = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((prevTodo) =>
-        prevTodo.id === id
-          ? {
-              ...prevTodo,
-              completed: !prevTodo.completed,
-            }
-          : prevTodo
-      );
-    });
-  };
-
-  const deleteTodo = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((prevTodo) => prevTodo.id !== id);
-    });
-  };
-
-  const shouldShowTodo = (todo, filter) => {
-    let show = false;
-    switch (filter) {
-      case "All":
-        show = true;
-        break;
-      case "Active":
-        show = todo.completed ? false : true;
-        break;
-      case "Completed":
-        show = todo.completed ? true : false;
-        break;
-      default:
-        console.log("Error: Invalid filter selected!");
-    }
-    return show;
-  };
-
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return;
-    const updatedTodos = Array.from(todos);
-    const [reorderedTodo] = updatedTodos.splice(result.source.index, 1);
-    updatedTodos.splice(result.destination.index, 0, reorderedTodo);
-    setTodos(updatedTodos);
-  };
+    saveAppData();
+  }, [theme, todos, todosFilter]);
 
   return (
     <div className="min-h-screen bg-light-veryLightGrayishBlue">
@@ -129,54 +29,11 @@ function App() {
         className={`bg-bg-mobile-light bg-cover h-200px mobilePlus:bg-bg-desktop-light mobilePlus:h-300px mobilePlus:bg-center`}
       ></div>
       <div className="mx-6 -mt-38 max-w-540px mobilePlus:mx-auto mobilePlus:-mt-56">
-        <AppHeader
-          isLightTheme={isLightTheme}
-          setIsLightTheme={setIsLightTheme}
-        />
-        <CreateTodoForm
-          todoText={todoText}
-          setTodoText={setTodoText}
-          createTodo={createTodo}
-        />
-        <div className="mt-4 rounded-md bg-white shadow-sm mobilePlus:mt-6 mobilePlus:shadow-lg">
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="todos">
-              {(provided) => (
-                <div
-                  className="todos"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {todos.map((todo, index) => {
-                    return (
-                      shouldShowTodo(todo, todoFilter) && (
-                        <Todo
-                          key={todo.id}
-                          index={index}
-                          todo={todo}
-                          toggleTodoCompletedState={toggleTodoCompletedState}
-                          deleteTodo={deleteTodo}
-                        />
-                      )
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-          <TodosMenu
-            todos={todos}
-            setTodos={setTodos}
-            todoFilter={todoFilter}
-            setTodoFilter={setTodoFilter}
-          />
-        </div>
+        <AppHeader />
+        <CreateTodoForm />
+        <TodoList />
         <div className="shadow-sm mobilePlus:hidden mt-4 rounded-md bg-white flex flex-row justify-center items-center py-3.5">
-          <TodosFilterTool
-            todoFilter={todoFilter}
-            setTodoFilter={setTodoFilter}
-          />
+          <TodosFilterTool />
         </div>
         <div className="mt-10 mobilePlus:mt-12">
           <p className="text-sm text-light-darkGrayishBlue text-center">
@@ -187,5 +44,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
