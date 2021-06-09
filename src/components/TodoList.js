@@ -48,7 +48,7 @@ export default function TodoList() {
   };
 
   return (
-    <div className="mt-4 rounded-md bg-white shadow-sm mobilePlus:mt-6 mobilePlus:shadow-lg">
+    <div className="mt-4 rounded-md bg-white dark:bg-dark-veryDarkDesaturatedBlue shadow-sm mobilePlus:mt-6 mobilePlus:shadow-lg">
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="todos">
           {(provided) => (

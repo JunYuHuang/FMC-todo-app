@@ -1,6 +1,6 @@
 module.exports = {
   purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -69,13 +69,16 @@ module.exports = {
       screens: {
         mobilePlus: "588px",
       },
+      placeholderColor: {
+        darkGrayishBlue: "hsl(234, 11%, 52%)",
+      },
     },
   },
   variants: {
     extend: {
       margin: ["first"],
       cursor: ["hover"],
-      backgroundImage: ["hover"],
+      backgroundImage: ["hover", "dark"],
     },
   },
   plugins: [],

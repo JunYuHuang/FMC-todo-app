@@ -15,6 +15,11 @@ import { selectTodosFilter, setTodosFilter } from "../redux/todosFilterSlice";
 
 const { getState, dispatch } = store;
 
+function setVisualTheme(theme) {
+  const root = window.document.documentElement;
+  theme === "dark" ? root.classList.add("dark") : root.classList.remove("dark");
+}
+
 export function loadAppData() {
   if (checkLSKeyValueExists(THEME)) {
     dispatch(setTheme(getLSKeyValue(THEME)));
@@ -29,6 +34,8 @@ export function loadAppData() {
   if (checkLSKeyValueExists(TODOSFILTER)) {
     dispatch(setTodosFilter(getLSKeyValue(TODOSFILTER)));
   }
+
+  setVisualTheme(selectTheme(getState()));
 }
 
 export function saveAppData() {
@@ -39,4 +46,6 @@ export function saveAppData() {
   setLSKeyValue(THEME, theme);
   setLSKeyValue(TODOS, todos);
   setLSKeyValue(TODOSFILTER, todosFilter);
+
+  setVisualTheme(selectTheme(getState()));
 }
