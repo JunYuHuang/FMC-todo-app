@@ -10,7 +10,7 @@ const TodoContainer = styled.div.attrs((props) => ({
 
 const DeleteButton = styled.button.attrs((props) => ({
   className:
-    "hover:cursor-pointer mobilePlus:opacity-0 group-hover:opacity-100",
+    "focus:outline-none hover:cursor-pointer mobilePlus:opacity-0 group-hover:opacity-100",
 }))``;
 
 const DeleteButtonImg = styled.img.attrs((props) => ({

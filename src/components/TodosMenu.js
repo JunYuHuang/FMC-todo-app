@@ -19,7 +19,7 @@ export default function TodosMenu() {
         <TodosFilterTool />
       </div>
       <button
-        className="text-xs text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-light-veryDarkGrayishBlue dark:hover:text-dark-lightGrayishBlueHover mobilePlus:text-sm mobilePlus:w-28"
+        className="focus:outline-none text-xs text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-light-veryDarkGrayishBlue dark:hover:text-dark-lightGrayishBlueHover mobilePlus:text-sm mobilePlus:w-28"
         onClick={handleClearCompletedTodos}
       >
         Clear Completed

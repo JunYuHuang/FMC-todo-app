@@ -14,7 +14,7 @@ export default function TodosFilterTool() {
     return (
       <button
         key={`filter-${filter}`}
-        className={`text-sm mx-2 font-bold hover:text-light-veryDarkGrayishBlue dark:hover:text-dark-lightGrayishBlueHover ${
+        className={`focus:outline-none text-sm mx-2 font-bold hover:text-light-veryDarkGrayishBlue dark:hover:text-dark-lightGrayishBlueHover ${
           todosFilter === filter
             ? "text-light"
             : "text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue"

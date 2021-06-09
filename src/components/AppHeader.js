@@ -15,7 +15,11 @@ export default function AppHeader() {
       <h1 className="text-white text-logoMobile font-bold tracking-mobileLogo leading-tight mobilePlus:text-4xl mobilePlus:leading-none mobilePlus:tracking-desktopLogo">
         TODO
       </h1>
-      <button aria-label="Toggle theme" onClick={handleToggleTheme}>
+      <button
+        aria-label="Toggle theme"
+        className="focus:outline-none"
+        onClick={handleToggleTheme}
+      >
         <img
           alt={`A ${
             theme === "light" ? "moon" : "sun"
