@@ -26,6 +26,7 @@ export default function CreateTodoForm() {
           type="text"
           className="block py-4 px-3 text-xs text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue flex-grow rounded-md focus:outline-none mobilePlus:text-lg mobilePlus:pt-5 mobilePlus:pb-4 mobilePlus:px-6 dark:bg-dark-veryDarkDesaturatedBlue dark:placeholder-darkGrayishBlue"
           name="input-todo"
+          id="input-todo"
           placeholder="Create a new todo..."
           value={todoText}
           onChange={(e) => handleSetTodoText(e.target.value)}
@@ -33,6 +34,9 @@ export default function CreateTodoForm() {
         <label htmlFor="input-todo" className="absolute -z-50">
           Create a new todo...
         </label>
+        <button type="submit" className="absolute -z-50">
+          Add Todo
+        </button>
       </div>
     </form>
   );
